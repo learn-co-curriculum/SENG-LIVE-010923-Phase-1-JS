@@ -75,6 +75,43 @@ const inventory = [
 // Start here!
 
 
+// ✅ create a formatPrice(price) function that accepts a price (number) as an argument and returns the price formatted as a string.
+// formatPrice(10) => '$10.00'
+
+
+// ✅ create a blurb() function that accepts a book as an argument and returns a string in the following format:
+// 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
+
+
+
+
+// 💡 Difference between Block scope, Function scope, and Global scope
+
+// ✅ create a variable `highestPricedBook`
+
+let highestPriceBook;
+
+// ✅ create a function `findHighestPricedBook` that finds that book and returns it
+
+function findHighestPricedBook() {
+  highestPriceBook = inventory[0]; // set to first book
+  for (let i = 1; i < inventory.length; i++) {
+    const highestPriceSoFar = highestPriceBook.price;
+    const thisBook = inventory[i];
+    if (thisBook.price > highestPriceSoFar) {
+      highestPriceBook = thisBook; // reassign if book has higher price
+    } 
+  }
+  return highestPriceBook;
+}
+
+console.log('highestPriceBook', highestPriceBook);
+
+// highestPrice book is undefined until we call findHighestPricedBook()
+findHighestPricedBook(); 
+console.log('highestPriceBook', highestPriceBook);
+
+// What is the problem with storing highestPriceBook as a global variable here? What would happen if we added another book of a higher price?
 
 
 // 💡 Arrow functions vs regular functions
@@ -83,26 +120,7 @@ const inventory = [
 
 
 
-// ✅ create a blurb() function that accepts a book as an argument and logs a message in the following format:
-// 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
-
-
-
-// 💡 Difference between Block scope, Function scope, and Global scope
-
-// ✅ create a variable `highestPricedBook`
-
-
-
-// ✅ create a function `findHighestPricedBook` that finds that book and returns it
-
-
-
 // After Break
-
-// ✅ Create a function called `log` that takes a function and its argument as arguments
-// and logs a message explaining the name of the function, the argument passed and 
-// the return value 
 
 // 💡 Practice using callbacks for iteration
 
