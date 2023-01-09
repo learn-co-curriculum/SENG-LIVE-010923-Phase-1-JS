@@ -73,27 +73,42 @@ const inventory = [
 */
 
 // Start here!
+function helloWorld() {
+  return "Hello, world!";
+}
+
+console.log(helloWorld());
 
 
 // ✅ create a formatPrice(price) function that accepts a price (number) as an argument and returns the price formatted as a string.
 // formatPrice(10) => '$10.00'
+function formatPrice(price) {
+  return '$' + Number.parseFloat(price).toFixed(2);
+  // return `$${Number.parseFloat(price).toFixed(2)}`
+}
 
-
+console.log('formatPrice(10)', formatPrice(10));
+const book = inventory[0];
 // ✅ create a blurb() function that accepts a book as an argument and returns a string in the following format:
 // 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
+function blurb(book) {
+  const title = book.title;
+  const author = book.author;
+  const price = formatPrice(book.price);
+  return `${title} by ${author} is on sale for ${price}`
+}
 
-
-
+console.log('blurb(book)', blurb(book));
 
 // 💡 Difference between Block scope, Function scope, and Global scope
 
 // ✅ create a variable `highestPricedBook`
 
-let highestPriceBook;
+// let highestPriceBook;
 
 // ✅ create a function `findHighestPricedBook` that finds that book and returns it
 
-function findHighestPricedBook() {
+function findHighestPricedBook(inventory) {
   highestPriceBook = inventory[0]; // set to first book
   for (let i = 1; i < inventory.length; i++) {
     const highestPriceSoFar = highestPriceBook.price;
@@ -105,11 +120,11 @@ function findHighestPricedBook() {
   return highestPriceBook;
 }
 
-console.log('highestPriceBook', highestPriceBook);
+console.log('highestPriceBook', findHighestPricedBook(inventory));
 
 // highestPrice book is undefined until we call findHighestPricedBook()
-findHighestPricedBook(); 
-console.log('highestPriceBook', highestPriceBook);
+findHighestPricedBook(inventory); 
+console.log('highestPriceBook', findHighestPricedBook(inventory));
 
 // What is the problem with storing highestPriceBook as a global variable here? What would happen if we added another book of a higher price?
 
@@ -118,7 +133,7 @@ console.log('highestPriceBook', highestPriceBook);
 
 // ✅ create an arrow function version of the formatPrice function
 
-
+const arrowFormatPrice = (price) => '$' + Number.parseFloat(price).toFixed(2);
 
 // After Break
 
@@ -127,15 +142,35 @@ console.log('highestPriceBook', highestPriceBook);
 
 
 // ✅ Create an array of the prices of all of the books
+const prices = [];
+inventory.forEach(book => {
+  console.log(book.price);
+})
 
+// equivalent to:
+// for (let i = 0; i < inventory.length; i++) {
+//   console.log(inventory[i].price);
+// }
 
 
 // ✅ Create an array of simplified book objects
+const simplifiedBooks = inventory.map(book => {
+  return {
+    title: book.title,
+    author: book.author,
+    price: formatPrice(book.price)
+  }
+})
 
+console.log('simplifiedBooks', simplifiedBooks)
 
 
 // ✅ Create an array of strings from the inventory in the following format:
 // 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
+
+// const blurbs = inventory.map(book => blurb(book));
+// or 
+const blurbs = inventory.map(blurb);
 
 
 // 💡 When do I use forEach vs map?
