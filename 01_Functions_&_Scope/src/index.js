@@ -174,3 +174,5 @@ const blurbs = inventory.map(blurb);
 
 
 // 💡 When do I use forEach vs map?
+// Use map when you want to build a new array from an existing array
+// Use forEach when you don't care about a return value or building a new array.
