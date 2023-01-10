@@ -70,7 +70,6 @@ function renderBook(book) {
   document.querySelector('#book-list').append(li);
 }
   
-const book = bookStore.inventory[0]
 bookStore.inventory.forEach(book => {
   renderBook(book);
 })
