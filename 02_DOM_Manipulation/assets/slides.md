@@ -123,3 +123,14 @@ https://techcrunch.com/wp-content/uploads/2007/10/picture-242.png
 - [MDN - Document](https://developer.mozilla.org/en-US/docs/Web/API/Document)
 - [MDN - Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)
 - [MDN - Node](https://developer.mozilla.org/en-US/docs/Web/API/Node)
+
+---
+
+### Additional Practice
+
+<iframe src="https://codesandbox.io/embed/dom-manipulation-practice-starter-6xv2ty?fontsize=14&hidenavigation=1&theme=dark&view=editor"
+  style="width:100%; height:800px; border:0; border-radius: 4px; overflow:hidden;"
+  title="dom-manipulation-practice-starter"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
