@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>VSCode Reveal intro</title>
+  <title>P1L2 - DOM Manipulation Slides</title>
 
   <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
   <meta name="author" content="Hakim El Hattab">
@@ -16,8 +16,6 @@
 
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reset.css">
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reveal.css">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <!-- highlight Theme -->
   
@@ -51,6 +49,8 @@
 
    <!-- css list -->
 	
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
 
    
 
@@ -166,23 +166,9 @@
 <li>Add content with <code>.textContent=</code></li>
 <li>Create elements with <code>.createElement</code></li>
 <li>Append elements to the DOM with <code>.appendChild</code> and <code>.append</code></li>
-<li>Explain the dangers of <code>innerHTML=</code> and when it’s safe to use</li>
+<li>Explain the dangers of <code>innerHTML=</code></li>
 <li>Remove content with <code>.remove</code></li>
-</ul>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h4>Navigating the TVMaze Website</h4>
-<ul>
-<li>Visit <a href="https://www.tvmaze.com/" rel="noopener noreferrer" target="_blank">TVMaze</a></li>
-<li class="fragment">Use <code>getElementById</code> to find the container for today’s popular shows</li>
-<li class="fragment">Explore using <code>querySelector</code> to get the div inside of that container</li>
+<li>Visit <a href="https://www.tvmaze.com/" rel="noopener noreferrer" target="_blank">TVMaze</a> to practice</li>
 </ul>
 
             </section>
@@ -197,9 +183,58 @@
 <ul>
 <li><code>renderHeader()</code>: renders the header content via JS</li>
 <li><code>renderFooter()</code>: renders the footer content via JS</li>
-<li>Use <code>querySelectorAll()</code> for grabbing content from a website via JS</li>
-<li><code>renderBook()</code>: create a list item for a book and insert it into the list</li>
+<li><code>renderBook()</code>: create a list item for a book and inserts it into the list</li>
 <li><code>removeBook(index)</code>: removes a book li from the DOM by its index in the <code>ul</code></li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h4>The Dangers of innerHTML=</h4>
+<iframe src="https://codesandbox.io/embed/dark-silence-5rbq0x?fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:700px; border:0; border-radius: 4px; overflow:hidden;"
+  title="dark-silence-5rbq0x"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h4>Bread and Butter tools</h4>
+<ul>
+<li>Create
+<ul>
+<li><code>document.createElement()</code></li>
+</ul>
+</li>
+<li>Read
+<ul>
+<li><code>querySelector()</code> &amp; <code>querySelectorAll()</code></li>
+</ul>
+</li>
+<li>Update
+<ul>
+<li><code>textContent =</code></li>
+<li><code>append()</code></li>
+<li><code>classList</code> for adding and removing classes from an element</li>
+<li>dot notation for editing properties (eg. <code>img.src = imageUrl</code>, or <code>div.className = &quot;card&quot;</code>)</li>
+</ul>
+</li>
+<li>Destroy
+<ul>
+<li><code>remove()</code></li>
+</ul>
+</li>
 </ul>
 
             </section>
@@ -213,6 +248,7 @@
             <h4>Links!</h4>
 <ul>
 <li><a href="https://eloquentjavascript.net/14_dom.html">DOM chapter in Eloquent JavaScript</a></li>
+<li><a href="https://betterprogramming.pub/dom-manipulation-the-dangers-of-innerhtml-602f4119d905">The Dangers of InnerHTML</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/NodeList">MDN - NodeList</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection">MDN - HTMLCollection</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document">MDN - Document</a></li>
@@ -220,6 +256,21 @@
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">MDN - Node</a></li>
 </ul>
 
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Additional Practice</h3>
+<iframe src="https://codesandbox.io/embed/dom-manipulation-practice-starter-6xv2ty?fontsize=14&hidenavigation=1&theme=dark&view=editor"
+  style="width:100%; height:800px; border:0; border-radius: 4px; overflow:hidden;"
+  title="dom-manipulation-practice-starter"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
             </section>
     
 
