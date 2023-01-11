@@ -53,10 +53,61 @@ function renderBook(book) {
 
   const btn = document.createElement('button');
   btn.textContent = 'Delete';
+
+  btn.addEventListener('click', (e) => {
+    li.remove();
+  })
+
   li.append(btn);
 
   document.querySelector('#book-list').append(li);
 }
+
+////////////////////////////////////////////////////////////////
+// Event Listeners/Handlers (Behavior => Data => Display)
+////////////////////////////////////////////////////////////////
+
+const toggleBookFormButton = document.querySelector('#toggleForm')
+const bookForm = document.querySelector('#book-form');
+
+function toggleBookForm() {
+  const bookFormHidden = bookForm.classList.toggle('collapsed');
+  if (bookFormHidden) {
+    toggleBookFormButton.textContent = "New Book";
+  } else {
+    toggleBookFormButton.textContent = "Hide Book Form";
+  }
+}
+toggleBookFormButton.addEventListener('click', (e) => {
+  toggleBookForm();
+});
+
+// hide form when escape key is pressed
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (!bookForm.classList.contains('collapsed')) {
+      toggleBookForm();
+    }
+  }
+})
+
+bookForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const book = {
+    title: e.target.title.value,
+    author: e.target.author.value,
+    price: parseFloat(e.target.price.value),
+    inventory: parseInt(e.target.inventory.value),
+    imageUrl: e.target.imageUrl.value,
+    reviews: []
+  }
+  
+  e.target.reset(); // clear form
+  toggleBookForm(); // hide book form
+  renderBook(book); // display new book to DOM
+})
+
 
 
 ////////////////////////////////////////////
