@@ -2,19 +2,19 @@ function formatPrice(price) {
   return '$' + Number.parseFloat(price).toFixed(2);
 }
 
-///////////////////
-// render functions
-///////////////////
+//////////////////////////////////////
+// render functions  (Data => Display)
+//////////////////////////////////////
 
 // create a function renderHeader() that takes the store name from bookStore and adds to the DOM
 function renderHeader(bookStore) {
-  document.querySelector('header h1').textContent = bookStore.name;
+  document.querySelector('#store-name').textContent = bookStore.name;
 }
 
 function renderFooter(bookStore) {
-  document.querySelector('#address').textContent = bookStore.address;
-  document.querySelector('#number').textContent = bookStore.number;
   document.querySelector('#store').textContent = bookStore.location;
+  document.querySelector('#number').textContent = bookStore.number;
+  document.querySelector('#address').textContent = bookStore.address;
 }
 
 // function: renderBook(book)
@@ -35,21 +35,25 @@ function renderBook(book) {
   
   const h3 = document.createElement('h3');
   h3.textContent = book.title;
+  li.append(h3);
 
   const pAuthor = document.createElement('p');
   pAuthor.textContent = book.author;
+  li.append(pAuthor);
   
   const pPrice = document.createElement('p');
   pPrice.textContent = formatPrice(book.price);
+  li.append(pPrice);
   
   const img = document.createElement('img');
   img.src = book.imageUrl;
   img.alt = `${book.title} cover`;
+  img.title = `${book.title} cover`;
+  li.append(img);
 
   const btn = document.createElement('button');
   btn.textContent = 'Delete';
-
-  li.append(h3, pAuthor, pPrice, img, btn);
+  li.append(btn);
 
   document.querySelector('#book-list').append(li);
 }

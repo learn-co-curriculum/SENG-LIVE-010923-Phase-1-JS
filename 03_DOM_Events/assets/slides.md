@@ -177,3 +177,14 @@ otherForm.addEventListener('submit', (e) => {
 - Users should be able to click the New Book button to display the form to add a new book
 - Users should be able to hide the New Book form by clicking the button again or hitting the Escape key on their keyboard
 - Users should be able to add a book by filling in the form at the top of the page (the book they add should appear in the DOM)
+
+---
+
+## Ideas for Additional Practice
+
+- Try using keyboard events to:
+  - add keyboard shortcuts to your app 
+  - simulate moving a player in an in browser game (using the arrow keys to move a character around the screen)
+- Try using mouse events to reveal parts of the screen as the cursor moves over them (and then hide them again when the cursor leaves)
+- Try adding a live updating search feature to an input (while you type in the input, the search results display only matches to what you've typed)
+- Build your own spoiler (a clickable summary that will display details below when clicked and hide them again when clicked again)

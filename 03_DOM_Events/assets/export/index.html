@@ -51,6 +51,8 @@
 
    <!-- css list -->
 	
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
 
    
 
@@ -93,7 +95,7 @@ input {
 <li>Explain how callback functions are used with event listeners</li>
 <li>Observe how to add a form to a webpage using HTML and JavaScript</li>
 <li>Observe how onSubmit events are used to receive information from Users via forms</li>
-<li>Explain the purpose of .preventDefault() method</li>
+<li>Explain the purpose of the <code>.preventDefault()</code> method</li>
 <li>Use MDN to discover and interact with JavaScript events</li>
 </ul>
 
@@ -133,12 +135,20 @@ input {
     
         <section >
             
-            <p><img 
+            <h3>The Setup</h3>
+<p><img 
   src="./event-handling-1.drawio.svg"  
   alt="Handling Events part 1 (setup)" 
   style="width: 85%" 
 /></p>
-
+<div class="fragment"> 
+<h3>The Payoff</h3>
+<p><img 
+  src="./event-handling-2.drawio.svg"  
+  alt="Handling Events part 2 (in action)" 
+  style="width: 85%" 
+/></p>
+</div> 
             </section>
     
 
@@ -147,11 +157,13 @@ input {
     
         <section >
             
-            <p><img 
-  src="./event-handling-2.drawio.svg"  
-  alt="Handling Events part 2 (in action)" 
-  style="width: 85%" 
-/></p>
+            <h3>In Practice</h3>
+<ul>
+<li>Identify event type</li>
+<li>Identify event target</li>
+<li>Add event listener for target and specify type (as first argument)</li>
+<li>add logic to handle the event to event handler callback (as second argument)</li>
+</ul>
 
             </section>
     
@@ -219,14 +231,14 @@ form.addEventListener('submit', (e) => {
 </script>
 <pre><code data-line-numbers><form>
   <input type="text" name="q" />
-  <input type="submit">Search</input>
+  <input type="submit" />
 </form>
 
 <script>
 const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
   console.log(form.q);
-}));
+});
 </script></code></pre>
             </section>
     
@@ -248,16 +260,17 @@ otherForm.addEventListener('submit', (e) => {
   console.log(otherForm.q.value);
 });
 </script>
-<pre><code data-line-numbers><form>
+<pre><code data-line-numbers><form id="otherForm">
   <input type="text" name="q" />
-  <input type="submit">Search</input>
+  <input type="submit" />
 </form>
 
 <script>
-const form = document.querySelector('form');
-form.addEventListener('submit', (e) => {
-  console.log(form.q);
-}));
+const otherForm = document.querySelector('#otherForm');
+otherForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log(otherForm.q.value);
+});
 </script></code></pre>
             </section>
     
@@ -270,7 +283,30 @@ form.addEventListener('submit', (e) => {
             <h2>Let’s Code!</h2>
 <ul>
 <li>Users should be able to delete books by clicking the delete button at the bottom of the book card</li>
+<li>Users should be able to click the New Book button to display the form to add a new book</li>
+<li>Users should be able to hide the New Book form by clicking the button again or hitting the Escape key on their keyboard</li>
 <li>Users should be able to add a book by filling in the form at the top of the page (the book they add should appear in the DOM)</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>Ideas for Additional Practice</h2>
+<ul>
+<li>Try using keyboard events to:
+<ul>
+<li>add keyboard shortcuts to your app</li>
+<li>simulate moving a player in an in browser game (using the arrow keys to move a character around the screen)</li>
+</ul>
+</li>
+<li>Try using mouse events to reveal parts of the screen as the cursor moves over them (and then hide them again when the cursor leaves)</li>
+<li>Try adding a live updating search feature to an input (while you type in the input, the search results display only matches to what you’ve typed)</li>
+<li>Build your own spoiler (a clickable summary that will display details below when clicked and hide them again when clicked again)</li>
 </ul>
 
             </section>
