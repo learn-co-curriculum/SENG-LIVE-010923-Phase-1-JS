@@ -2,27 +2,9 @@ const bookStore = {
   location: "Seattle",
   address:'333 st ne Seattle wa 99999',
   number: 9999999999,
-  name: 'Easley\'s Technical Books',
+  name: 'Easley\'s Technical Books are awesome',
   hours: 'Monday - Friday 9am - 6pm',
   inventory: [
-    {
-      id: 1,
-      title: 'Eloquent JavaScript: A Modern Introduction to Programming',
-      author: 'Marjin Haverbeke',
-      price: 10.00,
-      reviews: [{userID: 1, content:'Good book, but not great for new coders'}],
-      inventory: 10,
-      imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg',
-    },
-    {
-      id: 2,
-      title: 'JavaScript & JQuery: Interactive Front-End Web Development',
-      author: 'Jon Duckett',
-      price: 45.75,
-      reviews: [{userID: 15, content:'good way to learn JQuery'}],
-      inventory: 2,
-      imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/31SRWF+LkKL._SX398_BO1,204,203,200_.jpg'
-    },
     {
       id: 3,
       title: 'JavaScript: The Good Parts',

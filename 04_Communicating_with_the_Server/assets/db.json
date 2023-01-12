@@ -1,6 +1,6 @@
 {
   "posts": [
-    { "title": "JSON-server is really cool" },
-    { "title": "JSON-server allows you to mock an API server by creating a single file!"}
+    { "id": 1, "title": "JSON-server is really cool" },
+    { "id": 2, "title": "JSON-server allows you to mock an API server by creating a single file!"}
   ]
 }

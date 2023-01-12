@@ -2,6 +2,23 @@ function formatPrice(price) {
   return '$' + Number.parseFloat(price).toFixed(2);
 }
 
+////////////////////////////////////////////
+// call render functions to populate the DOM
+////////////////////////////////////////////
+
+fetch("http://localhost:3000/stores/1")
+  .then(response => response.json())
+  .then(bookStore => {
+    renderHeader(bookStore)
+    renderFooter(bookStore)
+  })
+// bookStore.inventory.forEach(renderBook)
+fetch("http://localhost:3000/books")
+  .then(response => response.json())
+  .then(books => {
+    books.forEach(renderBook)
+  })
+
 ///////////////////
 // render functions
 ///////////////////
@@ -122,13 +139,7 @@ bookForm.addEventListener('submit', (e) => {
 
 
 
-////////////////////////////////////////////
-// call render functions to populate the DOM
-////////////////////////////////////////////
 
-renderHeader(bookStore)
-renderFooter(bookStore)
-bookStore.inventory.forEach(renderBook)
 
 
 
