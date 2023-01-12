@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>VSCode Reveal intro</title>
+  <title>P1L4 - Communicating with the Server slides</title>
 
   <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
   <meta name="author" content="Hakim El Hattab">
@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reset.css">
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reveal.css">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <!-- highlight Theme -->
   
@@ -51,6 +50,8 @@
 
    <!-- css list -->
 	
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
 
    
 
@@ -168,53 +169,6 @@ input {
     
         <section >
             
-            <h3>Synchronous vs Asynchronous Code</h3>
-<img src="https://cdn-images-1.medium.com/max/749/0*arL3BF9VGPooOPIT" alt="Synchronous vs Asynchronous code diagram" />
-<p><small>Image source: <a href="https://laptrinhx.com/javascript-promises-a-zendesk-introduction-173205527/" rel="noopener noreferrer" target="_blank">Laptrinx.com</a></small></p>
-<aside class="notes">
-<ul>
-<li>When we order food at a restaurant, the chefs don’t wait till one dish is completely ready before starting on the next one.</li>
-<li>They take in the orders from the wait staff and complete them with priorities in mind.</li>
-<li>They’ll finish appetizers first and they may also be dealing with meals ordered by other customers at the same time</li>
-<li>The restaurant could not function properly if dishes could only be processed one at a time and it would be very awkward for our guests if dishes were delivered one at a time in the same order that they were placed!</li>
-<li>Whoever ordered first would end up with cold food! :(</li>
-<li>Instead, orders are handled asynchronously, this means that appetizers can be delivered when they’re ready, potentially a couple at a time</li>
-</ul>
-</aside>
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h3>Delivering a better experience</h3>
-<img src="https://cdn.buttercms.com/hmirWTF7TBCsX6mncY0P" alt="Synchronous vs Asynchronous delivery in terms of time" />
-<p><small>Image source: <a href="https://scoutapm.com/blog/async-javascript" rel="noopener noreferrer" target="_blank">Scout APM</a></small></p>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h3>Promises</h3>
-<img src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png" alt="Promise Diagram" />
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" rel="noopener noreferrer" target="_blank">MDN - Promise</a> * <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" rel="noopener noreferrer" target="_blank">MDN - Using Fetch</a></li>
-</ul>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
             <h3>HTTP Verbs &amp; CRUD</h3>
 <table>
 <thead>
@@ -268,6 +222,96 @@ input {
     
         <section >
             
+            <h3>Synchronous vs Asynchronous Code examples</h3>
+<div style="display: flex; flex-direction: row">
+  <div style="width: 50%">
+<h4>Sync callbacks</h4>
+<ul>
+<li><code>forEach</code></li>
+<li><code>map</code></li>
+<li><code>filter</code></li>
+<li><code>find</code></li>
+</ul>
+  </div>
+  <div style="width: 50%">
+<h4>Async callbacks</h4>
+<ul>
+<li><code>addEventListener</code></li>
+<li><code>setTimeout</code></li>
+<li><code>Promise.then</code></li>
+</ul>
+  </div>
+</div>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Synchronous vs Asynchronous code explained</h3>
+<img src="https://cdn-images-1.medium.com/max/749/0*arL3BF9VGPooOPIT" alt="Synchronous vs Asynchronous code diagram" />
+<p><small>Image source: <a href="https://laptrinhx.com/javascript-promises-a-zendesk-introduction-173205527/" rel="noopener noreferrer" target="_blank">Laptrinx.com</a></small></p>
+<aside class="notes">
+<ul>
+<li>When we order food at a restaurant, the chefs don’t wait till one dish is completely ready before starting on the next one.</li>
+<li>They take in the orders from the wait staff and complete them with priorities in mind.</li>
+<li>They’ll finish appetizers first and they may also be dealing with meals ordered by other customers at the same time</li>
+<li>The restaurant could not function properly if dishes could only be processed one at a time and it would be very awkward for our guests if dishes were delivered one at a time in the same order that they were placed!</li>
+<li>Whoever ordered first would end up with cold food! :(</li>
+<li>Instead, orders are handled asynchronously, this means that appetizers can be delivered when they’re ready, potentially a couple at a time</li>
+</ul>
+</aside>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Delivering a better experience</h3>
+<img src="https://cdn.buttercms.com/hmirWTF7TBCsX6mncY0P" alt="Synchronous vs Asynchronous delivery in terms of time" />
+<p><small>Image source: <a href="https://scoutapm.com/blog/async-javascript" rel="noopener noreferrer" target="_blank">Scout APM</a></small></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>A Demo of Sync &amp; Async code in practice</h3>
+<iframe src="https://codesandbox.io/embed/charming-sea-gzsr7e?fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="sync-vs-async demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Promises</h3>
+<img src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png" alt="Promise Diagram" width="90%" />
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" rel="noopener noreferrer" target="_blank">MDN - Promise</a> * <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" rel="noopener noreferrer" target="_blank">MDN - Using Fetch</a></li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
             <h3>JSON (JavaScript Object Notation)</h3>
 <p><img 
   src="https://res.cloudinary.com/dlzuobe8h/image/upload/v1665769374/l7GjO7D3eyP2fDOG1wv6bsiTPWAzeYTlYJk8mCWlCXFpyXbDGVtvezulzA7fQ1---9Vs5GKpPnfAoVjX-QeezNH87M6HHcbVb9NViYGEkMWakQDJBi0k69c5fKeBiBQck5PQup45-dlVsjlc4q8uFeG5tJACZ60nwJ7ywjRjyLg6Zcj7775mBYqAr6BE_nw_m4zhfz.png" 
@@ -301,6 +345,20 @@ input {
     
         <section >
             
+            <h3>Purpose</h3>
+<p>Get a full fake REST API with zero coding in less than 30 seconds (seriously)</p>
+<p>Created with <i class="fa-solid fa-heart"></i> for front-end developers who need a quick back-end for prototyping and mocking.</p>
+<p><a href="https://github.com/typicode/json-server" target="_blank"><i class="fa-brands fa-github"></i> View Docs</a></p>
+<p>Data in a JSON file <i class="fa-sharp fa-solid fa-arrow-right"></i> API endpoints to CRUD that data</p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
             <h3>Installation</h3>
 <pre><code>npm install -g json-server
 </code></pre>
@@ -313,7 +371,7 @@ input {
     
         <section >
             
-            <h3>Usage</h3>
+            <h3>Usage in a project</h3>
 <ul>
 <li class="fragment">create a file at project root called db.json</li>
 <li class="fragment">add an object to the db.json file</li>
@@ -381,6 +439,26 @@ touch db.json
 <ul>
 <li>If you run <code>json-server --watch db.json</code>, then your terminal will need to be in the same working directory as the db.json file.</li>
 </ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3>Killing a zombie server</h3>
+<h4>Diagnosis</h4>
+<pre><code>Some error occurred Error: listen EADDRINUSE: address already in use 127.0.0.1:3000
+</code></pre>
+<h4>Cure</h4>
+<pre><code>kill $(lsof -t -i:3000)
+</code></pre>
+<h4>Regimen</h4>
+<pre><code>alias k3000=&quot;kill $(lsof -t -i:3000)&quot;
+</code></pre>
+<p>I’ve created an alias for this fix, <code>k3000</code>, so I can just type <code>k3000</code> in my terminal to run this command. To add your own alias, you’ll want to put this code in your terminal profile: <code>~/.zshrc</code>, <code>~/.bash_profile</code>, or <code>~/.profile</code></p>
 
             </section>
     

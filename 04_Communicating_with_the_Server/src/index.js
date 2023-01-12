@@ -33,12 +33,15 @@ function renderBook(book) {
   
   const h3 = document.createElement('h3');
   h3.textContent = book.title;
+  li.append(h3);
 
   const pAuthor = document.createElement('p');
   pAuthor.textContent = book.author;
+  li.append(pAuthor);
   
   const pPrice = document.createElement('p');
   pPrice.textContent = formatPrice(book.price);
+  li.append(pPrice);
   
   const pStock = document.createElement('p');
   pStock.className = "grey";
@@ -49,44 +52,53 @@ function renderBook(book) {
   } else {
     pStock.textContent = "In stock"
   }
+  li.append(pStock);
   
   const img = document.createElement('img');
   img.src = book.imageUrl;
   img.alt = `${book.title} cover`;
+  li.append(img);
 
   const btn = document.createElement('button');
   btn.textContent = 'Delete';
+  li.append(btn);
 
   btn.addEventListener('click', (e) => {
     li.remove();
   })
 
-  li.append(h3,pAuthor,pPrice,pStock,img,btn);
+
   document.querySelector('#book-list').append(li);
 }
 
 
-///////////////////
-// Event Handlers
-///////////////////
+////////////////////////////////////////////////////////////////
+// Event Listeners/Handlers (Behavior => Data => Display)
+////////////////////////////////////////////////////////////////
 
-const toggleBookFormBtn = document.querySelector('#toggleForm');
+const toggleBookFormButton = document.querySelector('#toggleForm')
 const bookForm = document.querySelector('#book-form');
 
+function toggleBookForm() {
+  const bookFormHidden = bookForm.classList.toggle('collapsed');
+  if (bookFormHidden) {
+    toggleBookFormButton.textContent = "New Book";
+  } else {
+    toggleBookFormButton.textContent = "Hide Book Form";
+  }
+}
+
 // hide and show the new book form when toggle buton is clicked
-toggleBookFormBtn.addEventListener('click', (e) => {
-  const formHidden = bookForm.classList.toggle('collapsed')
-  toggleBookFormBtn.textContent = formHidden ?  "New Book" : "Hide Book Form";
+toggleBookFormButton.addEventListener('click', (e) => {
+  toggleBookForm();
 });
 
 // also hide the form when it's visible and the escape key is pressed
-
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     if (!bookForm.classList.contains('collapsed')) {
-      bookForm.classList.add('collapsed')
-      toggleBookFormBtn.textContent = "New Book";
-    };
+      toggleBookForm();
+    }
   }
 })
 
@@ -94,29 +106,20 @@ window.addEventListener('keydown', (e) => {
 bookForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // invoke renderBook to add the book data from the form into the DOM
-  // renderBook expects a book object as an argument, so we need to build that
-  // book should look something like this:
-  // {
-  //   id:1,
-  //   title: 'Eloquent JavaScript: A Modern Introduction to Programming',
-  //   author: 'Marjin Haverbeke',
-  //   price: 10.00,
-  //   reviews: [{userID: 1, content:'Good book, but not great for new coders'}],
-  //   inventory: 10,
-  //   imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg',
-  // }
   const book = {
     title: e.target.title.value,
     author: e.target.author.value,
     price: parseFloat(e.target.price.value),
-    reviews: [],
     inventory: parseInt(e.target.inventory.value),
-    imageUrl: e.target.imageUrl.value
+    imageUrl: e.target.imageUrl.value,
+    reviews: []
   }
-  renderBook(book);
-  e.target.reset();
-});
+  
+  e.target.reset(); // clear form
+  toggleBookForm(); // hide book form
+  renderBook(book); // display new book to DOM
+})
+
 
 
 ////////////////////////////////////////////

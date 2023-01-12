@@ -158,6 +158,17 @@ Method | CRUD Action | Description
 
 ---
 
+### A Demo of Sync & Async code in practice
+
+<iframe src="https://codesandbox.io/embed/charming-sea-gzsr7e?fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="sync-vs-async demo"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+---
+
 ### Promises
 
 <img src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/promises.png" alt="Promise Diagram" width="90%" />
@@ -192,6 +203,18 @@ JSON is:
 
 ---
 
+### Purpose
+
+Get a full fake REST API with zero coding in less than 30 seconds (seriously)
+
+Created with <i class="fa-solid fa-heart"></i> for front-end developers who need a quick back-end for prototyping and mocking.
+
+<a href="https://github.com/typicode/json-server" target="_blank"><i class="fa-brands fa-github"></i> View Docs</a>
+
+Data in a JSON file <i class="fa-sharp fa-solid fa-arrow-right"></i> API endpoints to CRUD that data
+
+---
+
 ### Installation
 
 ```
@@ -200,7 +223,7 @@ npm install -g json-server
 
 ---
 
-### Usage
+### Usage in a project
 
 - create a file at project root called db.json {.fragment}
 - add an object to the db.json file {.fragment}
