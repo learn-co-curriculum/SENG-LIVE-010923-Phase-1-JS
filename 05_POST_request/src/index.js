@@ -134,6 +134,17 @@ function formatPrice(price) {
   return '$' + Number.parseFloat(price).toFixed(2);
 }
 
+// fill in a form's with the data in an object
+function fillIn(form, data) {
+  for (field in data) {
+    // use [] notation for accessing data stored 
+    // in an object at variable keys, i.e. when
+    // we don't know the key name up front.
+    // In this case, it comes from an argument.
+    form[field].value = data[field]
+  }
+}
+
 ////////////////////////////////////////////////////////////////
 // Event Listeners/Handlers (Behavior => Data => Display)
 ////////////////////////////////////////////////////////////////
@@ -213,6 +224,18 @@ bookForm.addEventListener('submit', (e) => {
 })
 
 // 2. Hook up the new Store form so it that it works to add a new store to our database and also to the DOM (as an option within the select tag)
+
+// we're filling in the storeForm with some data
+// for a new store programatically so we don't 
+// have to fill in the form every time we test
+// the functionality
+fillIn(storeForm, {
+  name: "BooksRUs",
+  location: "LaLaLand",
+  number: "555-555-5555",
+  address: "555 Shangri-La",
+  hours: "Monday - Friday 9am - 6pm"
+})
 
 
 
