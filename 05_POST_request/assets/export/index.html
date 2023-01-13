@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>VSCode Reveal intro</title>
+  <title>P1L5 - POST Requests slides</title>
 
   <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
   <meta name="author" content="Hakim El Hattab">
@@ -16,8 +16,6 @@
 
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reset.css">
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reveal.css">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <!-- highlight Theme -->
   
@@ -51,6 +49,8 @@
 
    <!-- css list -->
 	
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  
 
    
 
@@ -177,10 +177,11 @@
             
             <h2>Working with JSON</h2>
 <ul>
-<li>Fetch to URL returns Promise</li>
+<li>Fetch to URL returns Promise for a response</li>
 <li>response.json() returns a Promise for the parsed body</li>
+<li>Fetch returns a resolved response even when we get an error from the API server.</li>
 </ul>
-<p class="fragment">This happens consistently as we send fetch requests, so we’ll end up typing a lot of boilerplate each time.</p>
+<p class="fragment">This happens consistently as we send fetch requests, so we’ll end up typing a lot of boilerplate each time–especially when we want to add a catch to our fetch call.</p>
 
             </section>
     
@@ -192,7 +193,14 @@
             
             <h2>Putting boilerplate into functions</h2>
 <pre><code data-line-numbers>function getJSON(url) {
-  return fetch(url).then(response => response.json())
+  return fetch(url)
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw (response.statusText)
+      }
+    })
 }
 
 function postJSON(url, data) {
@@ -203,7 +211,13 @@ function postJSON(url, data) {
     },
     body: JSON.stringify(data)
   })
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw (response.statusText)
+      }
+    })
 }</code></pre>
             </section>
     

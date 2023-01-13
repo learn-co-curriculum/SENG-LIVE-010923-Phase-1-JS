@@ -1,5 +1,29 @@
-// Rendering functions
-// Renders Header
+//////////////////////////////////////////////////////////
+// Fetch Data & Call render functions to populate the DOM
+//////////////////////////////////////////////////////////
+getJSON('http://localhost:3000/stores')
+  .then((stores) => {
+    // this populates a select tag with options so we can switch between stores on our web page
+    renderStoreSelectionOptions(stores);
+    renderHeader(stores[0])
+    renderFooter(stores[0])
+  })
+  .catch(err => {
+    console.error(err);
+    // renderError('Make sure to start json-server!') // I'm skipping this so we only see this error message once if JSON-server is actually not running
+  });
+
+// load all the books and render them
+getJSON("http://localhost:3000/books")
+  .then((books) => {
+    books.forEach(book => renderBook(book))
+  })
+  .catch(renderError);
+
+
+///////////////////
+// render functions
+///////////////////
 function renderHeader(bookStore) {
   document.querySelector('header h1').textContent = bookStore.name;
 }
@@ -110,41 +134,54 @@ function formatPrice(price) {
   return '$' + Number.parseFloat(price).toFixed(2);
 }
 
-// Event Handlers
-const toggleBookFormBtn = document.querySelector('#toggleBookForm');
+////////////////////////////////////////////////////////////////
+// Event Listeners/Handlers (Behavior => Data => Display)
+////////////////////////////////////////////////////////////////
+
+// UI Events
+////////////////////////////////////////////////////////////////
+const toggleBookFormButton = document.querySelector('#toggleBookForm');
 const bookForm = document.querySelector('#book-form');
-const toggleStoreFormBtn = document.querySelector('#toggleStoreForm');
+const toggleStoreFormButton = document.querySelector('#toggleStoreForm');
 const storeForm = document.querySelector('#store-form');
 
-// hide and show the new book form when toggle buton is clicked
-toggleBookFormBtn.addEventListener('click', (e) => {
-  const formHidden = bookForm.classList.toggle('collapsed')
-  toggleBookFormBtn.textContent = formHidden ?  "New Book" : "Hide Book Form";
-});
+function toggleBookForm() {
+  const bookFormHidden = bookForm.classList.toggle('collapsed');
+  if (bookFormHidden) {
+    toggleBookFormButton.textContent = "New Book";
+  } else {
+    toggleBookFormButton.textContent = "Hide Book Form";
+  }
+}
 
-toggleStoreFormBtn.addEventListener('click', (e) => {
-  const formHidden = storeForm.classList.toggle('collapsed');
-  toggleStoreFormBtn.textContent = formHidden ? " New Store" : "Hide Store Form";
-});
+function toggleStoreForm() {
+  const storeFormHidden = storeForm.classList.toggle('collapsed');
+  if (storeFormHidden) {
+    toggleStoreFormButton.textContent = "New Store";
+  } else {
+    toggleStoreFormButton.textContent = "Hide Store Form";
+  }
+}
+
+// hide and show the new book/store form when toggle buton is clicked
+toggleBookFormButton.addEventListener('click', toggleBookForm);
+toggleStoreFormButton.addEventListener('click', toggleStoreForm);
 
 // also hide both form when they're visible and the escape key is pressed
 
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     if (!bookForm.classList.contains('collapsed')) {
-      bookForm.classList.add('collapsed')
-      toggleBookFormBtn.textContent = "New Book";
+      toggleBookForm();
     };
     if (!storeForm.classList.contains('collapsed')) {
-      storeForm.classList.add('collapsed')
-      toggleStoreFormBtn.textContent = "New Store";
+      toggleStoreForm();
     };
   }
 })
 
-
-
-
+// Data persisting events
+////////////////////////////////////////////////////////////////
 
 // this is what a book looks like in db.json
 // {
@@ -178,23 +215,4 @@ bookForm.addEventListener('submit', (e) => {
 // 2. Hook up the new Store form so it that it works to add a new store to our database and also to the DOM (as an option within the select tag)
 
 
-// Invoking functions    
-// fetching our data!
-getJSON('http://localhost:3000/stores')
-  .then((stores) => {
-    // this populates a select tag with options so we can switch between stores on our web page
-    renderStoreSelectionOptions(stores);
-    renderHeader(stores[0])
-    renderFooter(stores[0])
-  })
-  .catch(err => {
-    console.error(err);
-    // renderError('Make sure to start json-server!') // I'm skipping this so we only see this error message once if JSON-server is actually not running
-  });
 
-// load all the books and render them
-getJSON("http://localhost:3000/books")
-  .then((books) => {
-    books.forEach(book => renderBook(book))
-  })
-  .catch(renderError);
