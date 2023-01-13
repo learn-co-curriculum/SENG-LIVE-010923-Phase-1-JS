@@ -16,7 +16,7 @@ getJSON('http://localhost:3000/stores')
 // load all the books and render them
 getJSON("http://localhost:3000/books")
   .then((books) => {
-    books.forEach(book => renderBook(book))
+    books.forEach(renderBook)
   })
   .catch(renderError);
 
@@ -217,13 +217,107 @@ bookForm.addEventListener('submit', (e) => {
     imageUrl: e.target.imageUrl.value
   }
   // pass the info as an argument to renderBook for display!
-  renderBook(book);
   // 1. Add the ability to perist the book to the database when the form is submitted. When this works, we should still see the book that is added to the DOM on submission when we refresh the page.
+  // optimistic version (DOM update doesn't depend on server update response)
+  
+  fetch("http://localhost:3000/books", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(book)
+  })
+    .then(response => response.json())
+    .then(book => {
+      console.log(book);
+    })
+  
+  renderBook(book);
+  
+  // pessimistic version (DOM update doesn't happen until we get server response)
+  // fetch("http://localhost:3000/books", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   },
+  //   body: JSON.stringify(book)
+  // })
+  //   .then(response => response.json())
+  //   .then(book => {
+  //     renderBook(book);
+  //   })
 
   e.target.reset();
 })
 
+fillIn(bookForm, {
+  "title": "JS is cool ",
+  "author": "me ",
+  "price": 23,
+  "inventory": 23,
+  "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/5131OWtQRaL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"
+})
+
 // 2. Hook up the new Store form so it that it works to add a new store to our database and also to the DOM (as an option within the select tag)
+
+storeForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const store = {
+    location: e.target.location.value,
+    address: e.target.address.value,
+    number: e.target.number.value,
+    name: e.target.name.value,
+    hours: e.target.hours.value
+  }
+
+  // optimistic rendering (add the store to the DOM before server update)
+  // addSelectOptionForStore(store);
+
+  // fetch("http://localhost:3000/stores", {
+  //   method: "POST",
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(store)
+  // })
+
+  // hybrid (the actual way to do optimistic rendering because you're fixing a bug that
+  // is introduced by implementing optimistic rendering)
+  
+  // addSelectOptionForStore(store);
+
+  // fetch("http://localhost:3000/stores", {
+  //   method: "POST",
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(store)
+  // })  
+  //   .then(response => response.json())
+  //   .then(savedStore => {
+  //     // find the dom node (option tag) without a value assigned (db id)
+  //     // and then assign the savedStore's id to the value of that option
+  //     const storeSelector = document.querySelector('#store-selector');
+  //     storeSelector.querySelector('option:last-child').value = savedStore.id
+  //   })
+  
+  
+  //pessimistic
+
+  fetch("http://localhost:3000/stores", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(store)
+  })  
+    .then(response => response.json())
+    .then(addSelectOptionForStore)
+
+  
+  console.log(store);
+})
 
 // we're filling in the storeForm with some data
 // for a new store programatically so we don't 
