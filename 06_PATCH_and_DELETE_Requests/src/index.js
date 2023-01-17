@@ -75,6 +75,7 @@ function addSelectOptionForStore(store) {
 // appends the li to the ul#book-list in the DOM
 function renderBook(book) {
   const li = document.createElement('li');
+  li.dataset.bookId = book.id;
   li.className = 'list-li';
   
   const h3 = document.createElement('h3');
@@ -94,6 +95,28 @@ function renderBook(book) {
   inventoryInput.className = 'inventory-input';
   inventoryInput.value = book.inventory;
   inventoryInput.min = 0;
+
+  inventoryInput.addEventListener('change', (e) => {
+    book.inventory = parseInt(e.target.value);
+    fetch(`http://localhost:3000/books/${li.dataset.bookId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        inventory: book.inventory
+      })
+    })
+    // optimistic update to the inventory text
+    if (book.inventory === 0) {
+      pStock.textContent = "Out of stock";
+    } else if (book.inventory < 3) {
+      pStock.textContent = "Only a few left!";
+    } else {
+      pStock.textContent = "In stock"
+    }
+  });
+
   li.append(inventoryInput);
   
   const pStock = document.createElement('p');
@@ -116,7 +139,26 @@ function renderBook(book) {
   btn.textContent = 'Delete';
 
   btn.addEventListener('click', (e) => {
-    li.remove();
+    if (window.confirm('Are you sure you want to delete this book?')){
+      // optimistic rendering
+      // fetch("http://localhost:3000/books/" + li.dataset.bookId, {
+      //   method: 'DELETE'
+      // })
+      // li.remove();
+
+      // pessimitic version
+      fetch("http://localhost:3000/books/" + li.dataset.bookId, {
+        method: 'DELETE'
+      })
+        .then(res => {
+          if (res.ok) {
+            li.remove();
+          }
+        })
+        .catch(renderError);
+    }
+    
+    
   })
   li.append(btn);
 
@@ -151,6 +193,7 @@ function fillIn(form, data) {
 // New Function to populate the store form with a store's data to update 
 function populateStoreEditForm(store) {
   const form = document.querySelector('#store-form');
+  form.dataset.storeId = store.id;
   fillIn(form, store);
   showStoreForm();
 }
@@ -241,12 +284,22 @@ bookForm.addEventListener('submit', (e) => {
   }
     
   // pessimistic rendering here:
+  // postJSON("http://localhost:3000/books", book)
+  //   .then(book => {
+  //     renderBook(book)
+  //     e.target.reset();
+  //   })
+  //   .catch(renderError);
+  
+  // optimistic version
+  renderBook(book);
   postJSON("http://localhost:3000/books", book)
     .then(book => {
-      renderBook(book)
+      document.querySelector('li:last-child').dataset.bookId = book.id;
       e.target.reset();
     })
     .catch(renderError);  
+  
 })
 
 // store form submit
@@ -263,7 +316,37 @@ storeForm.addEventListener('submit', (e) => {
   
   if (storeEditMode) {
     // ✅ write code for updating the store here
+    const storeId = e.target.dataset.storeId;
+    //pessimistic version
+    // fetch(`http://localhost:3000/stores/${storeId}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(store)
+    // })
+    //   .then(res => res.json())
+    //   .then((store) => {
+    //     renderHeader(store);
+    //     renderFooter(store);
+    //   })
+    //   .catch(renderError);
     
+      // optimistic version
+    fetch(`http://localhost:3000/stores/${storeId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(store)
+    })
+      .catch(renderError);
+      
+    // don't wait for server update to update DOM:
+    renderHeader(store);
+    renderFooter(store);
+    storeSelector.querySelector(`[value="${storeId}"]`).textContent = store.name
+
   } else {
     postJSON("http://localhost:3000/stores", store)
     .then(addSelectOptionForStore)

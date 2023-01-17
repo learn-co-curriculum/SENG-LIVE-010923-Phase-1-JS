@@ -127,7 +127,7 @@ function addLike(comment) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({likes: comment.likes + 1})
+    body: JSON.stringify({likes: comment.likes += 1})
   })
     .then(res => res.json())
     .then(comment => {
