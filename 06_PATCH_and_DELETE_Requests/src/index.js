@@ -1,9 +1,32 @@
-// Rendering functions
-// Renders Header
+//////////////////////////////////////////////////////////
+// Fetch Data & Call render functions to populate the DOM
+//////////////////////////////////////////////////////////
+getJSON('http://localhost:3000/stores')
+  .then((stores) => {
+    // this populates a select tag with options so we can switch between stores on our web page
+    renderStoreSelectionOptions(stores);
+    renderHeader(stores[0])
+    renderFooter(stores[0])
+  })
+  .catch(err => {
+    console.error(err);
+    // renderError('Make sure to start json-server!') // I'm skipping this so we only see this error message once if JSON-server is actually not running
+  });
+
+// load all the books and render them
+getJSON("http://localhost:3000/books")
+  .then((books) => {
+    books.forEach(renderBook)
+  })
+  .catch(renderError);
+
+///////////////////
+// render functions
+///////////////////
 function renderHeader(store){
   document.querySelector('h1').textContent = store.name
 }
-// Renders Footer
+
 function renderFooter(bookStore) {
   document.querySelector('#address').textContent = bookStore.address;
   document.querySelector('#number').textContent = bookStore.number;
@@ -56,18 +79,22 @@ function renderBook(book) {
   
   const h3 = document.createElement('h3');
   h3.textContent = book.title;
+  li.append(h3);
 
   const pAuthor = document.createElement('p');
   pAuthor.textContent = book.author;
+  li.append(pAuthor);
   
   const pPrice = document.createElement('p');
   pPrice.textContent = formatPrice(book.price);
+  li.append(pPrice);
 
   const inventoryInput = document.createElement('input');
   inventoryInput.type = 'number';
   inventoryInput.className = 'inventory-input';
   inventoryInput.value = book.inventory;
   inventoryInput.min = 0;
+  li.append(inventoryInput);
   
   const pStock = document.createElement('p');
   pStock.className = "grey";
@@ -78,10 +105,12 @@ function renderBook(book) {
   } else {
     pStock.textContent = "In stock"
   }
+  li.append(pStock);
   
   const img = document.createElement('img');
   img.src = book.imageUrl;
   img.alt = `${book.title} cover`;
+  li.append(img);
 
   const btn = document.createElement('button');
   btn.textContent = 'Delete';
@@ -89,8 +118,8 @@ function renderBook(book) {
   btn.addEventListener('click', (e) => {
     li.remove();
   })
+  li.append(btn);
 
-  li.append(h3, pAuthor, pPrice, inventoryInput, pStock, img, btn);
   document.querySelector('#book-list').append(li);
 }
 
@@ -111,14 +140,18 @@ function renderError(error) {
   })
 }
 
+function fillIn(form, data) {
+  for (field in data) {
+    if(form[field]) {
+      form[field].value = data[field]
+    }
+  }
+}
+
 // New Function to populate the store form with a store's data to update 
 function populateStoreEditForm(store) {
   const form = document.querySelector('#store-form');
-  form.name.value = store.name;
-  form.location.value = store.location;
-  form.address.value = store.address;
-  form.number.value = store.number;
-  form.hours.value = store.hours;
+  fillIn(form, store);
   showStoreForm();
 }
 
@@ -220,30 +253,23 @@ bookForm.addEventListener('submit', (e) => {
 
 storeForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  // debugger;
-  const store = {};
-  store.name = e.target.name.value;
-  store.address = e.target.address.value;
-  store.number = e.target.number.value;
-  store.hours = e.target.hours.value;
-  store.location = e.target.location.value;
-  // {
-  //     "id": 1, // will be assigned by the database
-  //     "location": "Seattle",
-  //     "address": "333 st ne Seattle wa 99999",
-  //     "number": 9999999999,
-  //     "name": "Easley's Technical Books",
-  //     "hours": "Monday - Friday 9am - 6pm"
-  //   },
+  const store = {
+    name: e.target.name.value,
+    address: e.target.address.value,
+    number: e.target.number.value,
+    hours: e.target.hours.value,
+    location: e.target.location.value
+  };
+  
   if (storeEditMode) {
     // ✅ write code for updating the store here
     
-    hideStoreForm()
   } else {
     postJSON("http://localhost:3000/stores", store)
-      .then(addSelectOptionForStore)
-      .catch(renderError);
+    .then(addSelectOptionForStore)
+    .catch(renderError);
   }
+  hideStoreForm()
   e.target.reset();
 })
 
@@ -258,25 +284,3 @@ editStoreBtn.addEventListener('click', (e) => {
     .then(populateStoreEditForm)
 })
 
-////////////////////////////////
-// Communicating with the Server
-////////////////////////////////
-
-
-getJSON('http://localhost:3000/stores')
-  .then((stores) => {
-    // this populates a select tag with options so we can switch between stores on our web page
-    renderStoreSelectionOptions(stores);
-    renderHeader(stores[0])
-    renderFooter(stores[0])
-  })
-  .catch(err => {
-    console.error(err);
-  });
-
-getJSON('http://localhost:3000/books')
-  .then(books => books.forEach(renderBook))
-  .catch(err => {
-    console.error(err);
-    renderError('Make sure to start json-server!')
-  });

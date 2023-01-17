@@ -2,8 +2,13 @@
   "comments": [
     {
       "id": 1,
-      "body": "some comment",
+      "body": "stale closures are annoying",
       "likes": 8
+    },
+    {
+      "id": 2,
+      "body": "My brain is 🤯",
+      "likes": 14
     }
   ]
 }

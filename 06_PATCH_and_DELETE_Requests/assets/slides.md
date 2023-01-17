@@ -3,7 +3,7 @@ theme : "night"
 transition: "slide"
 highlightTheme: "monokai"
 slideNumber: false
-title: "VSCode Reveal intro"
+title: "P1L6 - PATCH & DELETE Requests slides"
 height: 900
 width: 1400
 ---
@@ -45,6 +45,53 @@ width: 1400
 ---
 
 #### An Example
+Run
+
+```
+cd 06_PATCH_and_DELETE_Requests/assets
+json-server --watch db.json
+```
+
+<pre><code data-line-numbers>const commentList = document.querySelector('#comments');
+document.querySelector('#refreshList').addEventListener('click', refreshList);
+function refreshList() {
+  commentList.innerHTML = "";
+  fetch('http://localhost:3000/comments')
+    .then(res => res.json())
+    .then(comments => {
+      comments.forEach(renderComment)
+    })
+}
+
+function renderComment(comment) {
+  const li = document.createElement('li');
+  li.dataset.commentId = comment.id;
+  li.textContent = `${comment.body} `;
+  const likeBtn = document.createElement('button');
+  likeBtn.textContent = likeButtonTextFor(comment);
+  li.append(likeBtn);
+  likeBtn.addEventListener('click', (e) => addLike(comment));
+  commentList.append(li);
+}
+
+function addLike(comment) {
+  fetch(`http://localhost:3000/comments/${comment.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({likes: comment.likes + 1})
+  })
+    .then(res => res.json())
+    .then(comment => {
+      const btn = document.querySelector(`#comments li[data-comment-id="${comment.id}"] button`);
+      btn.textContent = likeButtonTextFor(comment);
+    })
+}
+
+function likeButtonTextFor(comment) {
+  return `${comment.likes} like${comment.likes === 1 ? '' : 's'} `
+}</code></pre>
 
 <button id="refreshList">Click to Refresh List</button>
 <ul id="comments">
@@ -63,23 +110,18 @@ function refreshList() {
     })
 }
 
-function likeButtonTextFor(comment) {
-  return `${comment.likes} like${comment.likes === 1 ? '' : 's'} `
-}
-
 function renderComment(comment) {
   const li = document.createElement('li');
   li.dataset.commentId = comment.id;
   li.textContent = `${comment.body} `;
   const likeBtn = document.createElement('button');
-  likeBtn.textContent = `${comment.likes} like${comment.likes === 1 ? '' : 's'}`
+  likeBtn.textContent = likeButtonTextFor(comment);
   li.append(likeBtn);
   likeBtn.addEventListener('click', (e) => addLike(comment));
   commentList.append(li);
 }
 
 function addLike(comment) {
-  // const currentCommentCount = parseInt(document.querySelector('li[data-comment-id="1"] button').textContent.split(' ')[0])
   fetch(`http://localhost:3000/comments/${comment.id}`, {
     method: "PATCH",
     headers: {
@@ -92,6 +134,10 @@ function addLike(comment) {
       const btn = document.querySelector(`#comments li[data-comment-id="${comment.id}"] button`);
       btn.textContent = likeButtonTextFor(comment);
     })
+}
+
+function likeButtonTextFor(comment) {
+  return `${comment.likes} like${comment.likes === 1 ? '' : 's'} `
 }
 
 </script>
