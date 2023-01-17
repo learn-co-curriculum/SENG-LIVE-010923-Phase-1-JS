@@ -329,6 +329,8 @@ storeForm.addEventListener('submit', (e) => {
     //   .then((store) => {
     //     renderHeader(store);
     //     renderFooter(store);
+    //     storeSelector.querySelector(`[value="${storeId}"]`).textContent = store.name
+
     //   })
     //   .catch(renderError);
     
