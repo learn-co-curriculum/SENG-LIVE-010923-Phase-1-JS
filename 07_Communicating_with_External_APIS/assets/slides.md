@@ -3,7 +3,7 @@ theme : "night"
 transition: "slide"
 highlightTheme: "monokai"
 slideNumber: false
-title: "VSCode Reveal intro"
+title: "P1L7 - Communicating with External APIs slides"
 height: 900
 width: 1400
 ---
